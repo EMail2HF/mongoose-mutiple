@@ -1,0 +1,27 @@
+{
+  "name": "mongoose-plug",
+  "version": "1.0.0",
+  "description": "Making it easier to interact with connections and databases when using mongoose",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Sandrino Di Mattia",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sandrinodimattia/mongoose-plug"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "lodash": "^4.17.4",
+    "muri": "^1.2.1",
+    "promise-retry": "^1.1.1"
+  },
+  "peerDependencies": {
+    "mongoose": "^4.9.2"
+  }
+  "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.2",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}
