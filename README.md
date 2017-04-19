@@ -33,6 +33,7 @@ connection.connect()
       email: String,
       password: String
     }));
+
     User.find({ })
       .then(users => {
         console.log('All users:', users);
@@ -67,7 +68,7 @@ const connection = new MongooseConnection('mongodb://localhost:28017/temp', {
 
 connection.connect()
   .then(() => {
-    const db = connection.use();
+    const db = connection.getDb();
     return db.users.find({ }).exec()
       .then((users) => {
         console.log(users);
@@ -140,13 +141,13 @@ pool.add('configuration', 'mongodb://localhost:28017/config', {
 In a multi-tenancy scenario you might want to use multiple databases that are part of the same cluster. This can be achieved by using [useDb](http://mongoosejs.com/docs/api.html#drivers_node-mongodb-native_connection_NativeConnection-useDb) in mongoose.
 
 ```js
-const tenant = connection.use('tenant-01');
+const tenant = connection.getDb('tenant-01');
 tenant.users.find({ }).exec()
   .then((users) => {
     console.log('Users for tenant-01:', users);
 
-    // If I no longer need this database, I can just unset it (this will clear the cache);
-    connection.unset(tenant);
+    // If I no longer need this database, I can just clear it (this will clear the cache);
+    connection.clearDb(tenant);
   })
 ```
 
@@ -210,6 +211,7 @@ connection.connect()
 A schema helper is also available which turns objects into Mongoose schemas.
 
 ```js
+const paginate = require('mongoose-paginate');
 const MongooseSchema = require('mongoose-plug').MongooseSchema;
 const MongooseConnection = require('mongoose-plug').MongooseConnection;
 
@@ -228,6 +230,10 @@ const connection = new MongooseConnection('mongodb://localhost:28017/temp', {
           options: { name: 'unique_customer', unique: true }
         }
       ],
+      plugins: [
+        paginate,
+        { register: myOtherPlugin, options: { someThing: 3939 } }
+      ],
       options: {
         timestamps: true
       },
@@ -245,7 +251,7 @@ const connection = new MongooseConnection('mongodb://localhost:28017/temp', {
 
 connection.connect()
   .then(() => {
-    const db = connection.use();
+    const db = connection.userDb();
     db.customers.create({ name: 'customer-1' })
       .then(console.log)
       .catch(console.log);
