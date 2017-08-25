@@ -1,6 +1,6 @@
 {
   "name": "mongoose-plug",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Making it easier to interact with connections and databases when using mongoose",
   "main": "index.js",
   "license": "MIT",
@@ -9,14 +9,30 @@
     "type": "git",
     "url": "git://github.com/sandrinodimattia/mongoose-plug"
   },
+  "scripts": {
+    "test": "jest --colors --coverage --forceExit",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "moduleNameMapper": {
+      "^mongoose$": "<rootDir>/node_modules/mongoose"
+    }
+  },
   "dependencies": {
     "bluebird": "^3.5.0",
+    "jest": "^20.0.4",
     "lodash": "^4.17.4",
     "muri": "1.2.2",
     "promise-retry": "^1.1.1"
   },
   "peerDependencies": {
-    "mongoose": "*"
+    "mongoose": "^4.11.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
