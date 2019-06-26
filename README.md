@@ -1,7 +1,7 @@
-[![NPM version](https://badge.fury.io/js/mongoose-plug.svg)](http://badge.fury.io/js/mongoose-plug) mongoose-plug
+[![NPM version](https://badge.fury.io/js/mongoose-plug.svg)](http://badge.fury.io/js/mongoose-plug) mongoose-mutiple
 ======================
 
-**mongoose-plug** aims at making it easier to interact with connections and databases when using [mongoose](https://www.npmjs.com/package/mongoose).
+**mongoose-mutiple** aims at making it easier to interact with connections and databases when using [mongoose](https://www.npmjs.com/package/mongoose).
 
 Features included:
 
