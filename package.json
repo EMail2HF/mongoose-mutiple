@@ -1,5 +1,5 @@
 {
-  "name": "mongoose-plug",
+  "name": "mongoose-mutiple",
   "version": "1.4.0",
   "description": "Making it easier to interact with connections and databases when using mongoose",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "author": "Sandrino Di Mattia",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sandrinodimattia/mongoose-plug"
+    "url": "git://github.com/EMail2HF/mongoose-plug.git"
   },
   "scripts": {
     "test": "jest --colors --coverage --forceExit",

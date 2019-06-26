@@ -310,3 +310,89 @@ Example:
   }
 });
 ```
+
+Example:
+
+```js
+
+const mongoose = require('mongoose');
+
+const MongooseConnection = require('mongoose-plug').MongooseConnection;
+
+
+
+app.beforeStart(async () => {
+    // 此处是你原来的逻辑代码
+
+    console.log('beforeStart')
+
+     // Setup the connection
+  const connection = new MongooseConnection('mongodb://192.168.0.252:10012/TesDFZN', {
+    exitOnError: true,
+    exitOnTerminate: true,
+    useNewUrlParser: true
+  });
+
+   const conn=await  connection.connect();
+
+  if(conn){
+
+    app.MutipleDB = connection;
+
+    var smd = new mongoose.Schema({
+      name: {
+        type: String,
+        unique: true
+      },
+      email: String,
+      password: String
+    });
+
+    const muser = connection.addSchema('users', smd);
+
+    if (muser) {
+
+      muser.find({})
+        .then(users => {
+          console.log('All users m1:', users);
+        });
+
+
+    }
+ 
+
+    const tenant = connection.getDb('TestDFZN1');
+    tenant.users.find({}).exec()
+      .then((users) => {
+        console.log('Users for tenant-01:', users);
+
+        // If I no longer need this database, I can just clear it (this will clear the cache);
+        connection.clearDb(tenant);
+      })
+
+      
+    const tenants = connection.getDb();
+    tenants.users.find({}).exec()
+      .then((users) => {
+        console.log('Users for tenant-00:', users);
+
+        // If I no longer need this database, I can just clear it (this will clear the cache);
+        connection.clearDb(tenants);
+      })
+
+      tenant.users.find({}).exec()
+      .then((users) => {
+        console.log('Users for tenant-01:', users);
+
+        // If I no longer need this database, I can just clear it (this will clear the cache);
+        connection.clearDb(tenant);
+      })
+
+
+  }
+
+  //////
+  });
+
+
+```
